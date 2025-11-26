@@ -1,19 +1,15 @@
-import machine
+from machine import Pin, I2C
 import time
 from ota import OTAUpdater
 
 import ssd1306
 
-i2c = machine.I2C(scl=machine.Pin(22),sda=machine.Pin(21))
-oled_width = 128
-oled_height = 64
-oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c)
+i2c = I2C(scl=Pin(22),sda=Pin(21))
+display = ssd1306.SSD1306_I2C(128, 64, i2c)
+display.text('Hello-World_1', 0, 0, 1)
+display.show()
 
-oled.text('Hello-World_1',0,0)
-
-oled.show()
-
-led = machine.Pin(12, machine.Pin.OUT)
+led = Pin(12, Pin.OUT)
 
 while True:
     for i in range(20):
