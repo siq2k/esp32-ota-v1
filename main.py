@@ -6,10 +6,11 @@ import ssd1306
 
 i2c = I2C(scl=Pin(22),sda=Pin(21))
 display = ssd1306.SSD1306_I2C(128, 64, i2c)
-display.poweroff()
-display.poweron()
-display.text('Hello, World!', 0, 0, 1)
-display.show()
+display.stop()
+time.sleep(0.5)
+display.start()
+display.write('Hello, World!', 0, 0, 1)
+display()
 
 led = Pin(12, Pin.OUT)
 
