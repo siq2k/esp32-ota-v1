@@ -1,16 +1,16 @@
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 import time
 from ota import OTAUpdater
 
 import ssd1306
 
-i2c = I2C(scl=Pin(22),sda=Pin(21))
-display = ssd1306.SSD1306_I2C(128, 64, i2c)
-display.stop()
-time.sleep(0.5)
-display.start()
-display.write('Hello, World!', 0, 0, 1)
-display()
+i2c = SoftI2C(scl=Pin(22),sda=Pin(21), freq=100000)
+i2c.scan()
+i2c.readfrom(0x3a, 4)   # read 4 bytes from device with address 0x3a
+i2c.writeto(0x3a, '12') # write '12' to device with address 0x3a
+
+buf = bytearray(10)     # create a buffer with 10 bytes
+i2c.writeto(0x3a, buf)  # write the given buffer to the peripheral
 
 led = Pin(12, Pin.OUT)
 
