@@ -16,7 +16,7 @@ oled.show()
 led = machine.Pin(12, machine.Pin.OUT)
 
 while True:
-    for i in range(100):
+    for i in range(20):
         led.on()
         time.sleep(0.5)
         led.off()
